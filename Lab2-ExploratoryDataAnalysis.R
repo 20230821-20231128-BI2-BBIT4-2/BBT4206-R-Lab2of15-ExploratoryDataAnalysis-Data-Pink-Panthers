@@ -27,7 +27,7 @@
 #   More detailed article: https://rstudio.github.io/renv/articles/renv.html
 
 # Install renv:
-if (!is.element("renv", installed.packages()[, 1])) {
+ if (!is.element("renv", installed.packages()[, 1])) {
   install.packages("renv", dependencies = TRUE)
 }
 require("renv")
@@ -102,6 +102,7 @@ iris_dataset <- read.csv("data/iris.data", header = FALSE,
 
 # names(iris_dataset) <- c("sepal length in cm", "sepal width in cm",
 #                          "petal length in cm", "petal width in cm", "class")
+
 
 if (!is.element("readr", installed.packages()[, 1])) {
   install.packages("readr", dependencies = TRUE)
@@ -273,6 +274,7 @@ summary(PimaIndiansDiabetes)
 # a string data type.
 
 sapply(BostonHousing[, -4], sd)
+
 sapply(BostonHousing[, c(1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)], sd)
 
 # The data type of "yield" should be double (not numeric) so that it can be
@@ -361,6 +363,7 @@ View(crop_dataset_cor)
 
 iris_dataset_cor <- cor(iris_dataset[, 1:4])
 View(iris_dataset_cor)
+
 
 pima_indians_diabetes_cor <- cor(PimaIndiansDiabetes[, 1:8])
 View(pima_indians_diabetes_cor)
