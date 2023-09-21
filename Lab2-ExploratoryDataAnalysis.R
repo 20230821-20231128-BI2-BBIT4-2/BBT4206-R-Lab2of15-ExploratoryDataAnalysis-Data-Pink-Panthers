@@ -22,7 +22,7 @@
 # projects. This is helpful when working in teams because it makes your R
 # projects more isolated, portable and reproducible.
 
-# Further reading:
+       # Further reading:
 #   Summary: https://rstudio.github.io/renv/
 #   More detailed article: https://rstudio.github.io/renv/articles/renv.html
 
@@ -43,12 +43,23 @@ require("renv")
 # 4: Abort project initialization.
 
 # Select option 1 to restore the project from the lockfile
-renv::init()
+#renv::init()
 
 # This will set up a project library, containing all the packages you are
 # currently using. The packages (and all the metadata needed to reinstall
 # them) are recorded into a lockfile, renv.lock, and a .Rprofile ensures that
 # the library is used every time you open that project.
+
+# Consider a library as the location where packages are stored.
+# Execute the following command to list all the libraries available in your
+# computer:
+.libPaths()
+
+# One of the libraries should be a folder inside the project.
+
+# Then execute the following command to see which packages are available in
+# each library:
+lapply(.libPaths(), list.files)
 
 # This can also be configured using the RStudio GUI when you click the project
 # file, e.g., "BBT4206-R.Rproj" in the case of this project. Then
@@ -100,8 +111,8 @@ iris_dataset <- read.csv("data/iris.data", header = FALSE,
 # The following code (optional) can be used to name the attributes in the
 # iris_dataset:
 
-# names(iris_dataset) <- c("sepal length in cm", "sepal width in cm",
-#                          "petal length in cm", "petal width in cm", "class")
+names(iris_dataset) <- c("sepal length in cm", "sepal width in cm",
+                          "petal length in cm", "petal width in cm", "class")
 
 
 if (!is.element("readr", installed.packages()[, 1])) {
@@ -235,10 +246,19 @@ crop_dataset_fertilizer_mode <- names(table(crop_dataset$fertilizer))[
 ]
 print(crop_dataset_fertilizer_mode)
 
-iris_dataset_mode <- names(table(iris_dataset$V5))[
-  which(table(iris_dataset$V5) == max(table(iris_dataset$V5)))
-]
-print(iris_dataset_mode)
+# # Check for missing values in iris_dataset$V5
+# missing_values <- is.na(iris_dataset$V5)
+# 
+# # Remove rows with missing values
+# cleaned_data <- iris_dataset[!missing_values, ]
+# 
+# # Compute the maximum value in the cleaned data
+# max_value <- max(cleaned_data$V5)
+# 
+# iris_dataset_mode <- names(table(iris_dataset$V5))[
+#   which(table(iris_dataset$V5) == max(table(iris_dataset$V5)))
+# ]
+# print(iris_dataset_mode)
 
 pima_indians_diabetes_mode <- names(table(PimaIndiansDiabetes$diabetes))[
   which(table(PimaIndiansDiabetes$diabetes) ==
@@ -420,7 +440,7 @@ View(pima_indians_diabetes_cor)
 # The null hypothesis (H0) of the ANOVA is that
 # “there is no difference in means”, and
 # the alternative hypothesis (Ha) is that
-# “the means are different from one another”.
+# “the means are different from one another”.-> Negative of the Null Hypothesis
 
 # We can use the “aov()” function in R to calculate the test statistic for
 # ANOVA. The test statistic is in turn used to calculate the p-value of your
