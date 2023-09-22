@@ -290,3 +290,178 @@ View(boston_housing_cor)
 #Write two things you like about the teaching and learning in this unit so far."	D - 2. Write at least one recommendation to improve the teaching and learning in this unit (for the remaining weeks in the semester)	Average Course Evaluation Rating	Average Level of Learning Attained Rating	Average Pedagogical Strategy Effectiveness Rating	Project: Section 1-4: (20%) x/10	Project: Section 5-11: (50%) x/10	Project: Section 12: (30%) x/5	Project: (10%): x/30 x 100 TOTAL	Quiz 1 on Concept 1 (Introduction) x/32	Quiz 3 on Concept 3 (Linear) x/15	Quiz 4 on Concept 4 (Non-Linear) x/22	Quiz 5 on Concept 5 (Dashboarding) x/10	Quizzes and  Bonus Marks (7%): x/79 x 100 TOTAL	Lab 1 - 2.c. - (Simple Linear Regression) x/5	Lab 2 - 2.e. -  (Linear Regression using Gradient Descent) x/5	Lab 3 - 2.g. - (Logistic Regression using Gradient Descent) x/5	Lab 4 - 2.h. - (Linear Discriminant Analysis) x/5	Lab 5 - Chart JS Dashboard Setup x/5	Lab Work (7%) x/25 x 100	CAT 1 (8%): x/38 x 100	CAT 2 (8%): x/100 x 100	Attendance Waiver Granted: 1 = Yes, 0 = No	Absenteeism Percentage	Coursework TOTAL: x/40 (40%)	EXAM: x/60 (60%)	TOTAL = Coursework TOTAL + EXAM (100%)	GRADE
 student_data_one_way_anova <- aov (GRADE ~ motivator , data = student_data )
 summary(student_data_one_way_anova)
+
+
+### STEP 17. Create Histograms for Each Numeric Attribute ----
+# Identify numeric columns
+# Identify numeric columns
+numeric_columns <- sapply(student_data, is.numeric)
+
+# Select only the numeric columns
+numeric_data <- student_data[, numeric_columns]
+
+# Remove any non-numeric values and convert to numeric
+numeric_data <- sapply(numeric_data, function(x) ifelse(is.na(as.numeric(x)), NA, as.numeric(x)))
+
+# Remove columns with all NA values (non-numeric columns)
+numeric_data <- numeric_data[, colSums(is.na(numeric_data)) < nrow(numeric_data)]
+
+# Define the number of bins for histograms
+num_bins <- 20
+
+# Create histograms for numeric variables
+par(mfrow = c(2, 2))  # Adjust the layout based on the number of numeric variables
+for (i in 1:ncol(numeric_data)) {
+  if (!all(is.na(numeric_data[, i]))) {  # Check if there are no NA values in the column
+    hist(numeric_data[, i], main = names(numeric_data)[i], breaks = num_bins)
+  }
+}
+
+
+# The name suggesting what the histogram is for
+par(mfrow = c(1, 3))
+student_regretting <- as.numeric(unlist(student_data[, 4]))
+hist(student_regretting, main = names(student_data)[4])
+
+student_read_contet <- as.numeric(unlist(student_data[, 7]))
+hist(student_read_contet, main = names(student_data)[7])
+
+student_study_time <- as.numeric(unlist(student_data[, 27]))
+hist(student_study_time, main = names(student_data)[27])
+
+student_repeats <- as.numeric(unlist(student_data[, 28]))
+hist(student_repeats, main = names(student_data)[28])
+
+student_with_internet <- as.numeric(unlist(student_data[, 36]))
+hist(student_with_internet, main = names(student_data)[36])
+
+student_avg_evaluation <- as.numeric(unlist(student_data[, 75]))
+hist(student_avg_evaluation, main = names(student_data)[75])
+
+student_avg_learning <- as.numeric(unlist(student_data[, 76]))
+hist(student_avg_learning, main = names(student_data)[76])
+
+student_total <- as.numeric(unlist(student_data[, 98]))
+hist(student_total, main = names(student_data)[98])
+
+### STEP 18. Create Box and Whisker Plots for Each Numeric Attribute ----
+
+par(mfrow = c(1, 3))
+for (i in 4:6) {
+  boxplot(student_data[, i], main = names(student_data)[i])
+}
+#Avg course evaluation
+boxplot(student_data[, 75], main = names(student_data)[75])
+
+par(mfrow = c(1, 7))
+for (i in 60:72) {
+  boxplot(student_data[, i], main = names(student_data)[i])
+}
+par(mfrow = c(1, 3))
+#learning
+boxplot(student_data[, 76], main = names(student_data)[76])
+#Totals
+par(mfrow = c(1, 2))
+
+boxplot(student_data[, 98], main = names(student_data)[98])
+
+
+### STEP 19. Create Bar Plots for Each Categorical Attribute ----
+
+#Barplot for all categorical data
+par(mfrow = c(1, 6))
+for (i in 1:6) {for (i in 1:6) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 7:12) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 13:18) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 25:30) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 31:36) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 37:42) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 43:48) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 49:54) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 55:60) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 61:66) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+for (i in 67:72) {
+  barplot(table(student_data[, i]), main = names(student_data)[i])
+}
+
+
+### STEP 20. Create a Missingness Map to Identify Missing Data ----
+
+if (!is.element("Amelia", installed.packages()[, 1])) {
+  install.packages("Amelia", dependencies = TRUE)
+}
+require("Amelia")
+
+missmap(student_data, col = c("red", "grey"), legend = TRUE)
+
+
+### STEP 21. Create a Correlation Plot ----
+
+if (!is.element("corrplot", installed.packages()[, 1])) {
+  install.packages("corrplot", dependencies = TRUE)
+}
+require("corrplot")
+corrplot(cor(student_data[, 4:8]), method = "circle")
+corrplot(cor(student_data[, 94:96]), method = "circle")
+
+if (!is.element("ggcorrplot", installed.packages()[, 1])) {
+  install.packages("ggcorrplot", dependencies = TRUE)
+}
+require("ggcorrplot")
+#Absentism vs coursework marks
+ggcorrplot(cor(student_data[, 95:97]))
+#Marks
+ggcorrplot(cor(student_data[, 97:99]))
+#Avg Course Evaluation
+ggcorrplot(cor(student_data[, 75:77]))
+
+
+### STEP 22. Create a Scatter Plot ----
+
+ggplot(student_data,
+       aes(x = gender, y = study_time, color = class_group)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+
+ggplot(student_data,
+       aes(x = YOB, y = study_time, color = class_group)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+ggplot(student_data,
+       aes(x = gender, y = goal_oriented, color = class_group)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+
+### STEP 23. Create Multivariate Box and Whisker Plots by Class ----
+if (!is.element("caret", installed.packages()[, 1])) {
+  install.packages("caret", dependencies = TRUE)
+}
+require("caret")
+featurePlot(x = student_data[, 1:3], y = student_data[, 100], plot = "box")
+
+
