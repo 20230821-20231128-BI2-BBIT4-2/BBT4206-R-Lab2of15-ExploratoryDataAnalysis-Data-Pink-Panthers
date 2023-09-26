@@ -285,13 +285,13 @@ if (!is.element("e1071", installed.packages()[, 1])) {
 }
 require("e1071")
 
-sapply(student_data[, c( 75, 76, 77, 78, 79, 80, 
+sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80, 
                                81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 
                                91, 92, 93, 94, 95, 96, 97, 98, 99)], kurtosis, type = 2)
 
 ### STEP 13. Measure the skewness of each variable ----
 
-sapply(student_data[, c( 75, 76, 77, 78, 79, 80, 
+sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80, 
                                81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 
                                91, 92, 93, 94, 95, 96, 97, 98, 99)], kurtosis, type = 2)
 
