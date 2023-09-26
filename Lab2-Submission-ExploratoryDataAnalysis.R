@@ -272,7 +272,7 @@ sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80,
 
 
 
-i### STEP 11. Measure the variance of each variable ----
+### STEP 11. Measure the variance of each variable ----
 
 sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80, 
                                81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 
@@ -293,7 +293,7 @@ sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80,
 
 sapply(student_dataset[, c( 75, 76, 77, 78, 79, 80, 
                                81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 
-                               91, 92, 93, 94, 95, 96, 97, 98, 99)], kurtosis, type = 2)
+                               91, 92, 93, 94, 95, 96, 97, 98, 99)], skewness, type = 2)
 
 ## STEP 14. Measure the covariance between variables ----
 
