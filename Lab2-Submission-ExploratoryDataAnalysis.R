@@ -318,117 +318,97 @@ summary(student_data_one_way_anova)
 
 ### STEP 17. Create Histograms for Each Numeric Attribute ----
 # Identify numeric columns
-# Identify numeric columns
-numeric_columns <- sapply(student_data, is.numeric)
 
-# Select only the numeric columns
-numeric_data <- student_data[, numeric_columns]
+student_total <- as.numeric(unlist(student_dataset[, 99]))
+student_exam <- as.numeric(unlist(student_dataset[, 98]))
+student_course <- as.numeric(unlist(student_dataset[, 97]))
 
-# Remove any non-numeric values and convert to numeric
-numeric_data <- sapply(numeric_data, function(x) ifelse(is.na(as.numeric(x)), NA, as.numeric(x)))
+par(mfrow = c(1, 1))
 
-# Remove columns with all NA values (non-numeric columns)
-numeric_data <- numeric_data[, colSums(is.na(numeric_data)) < nrow(numeric_data)]
-
-# Define the number of bins for histograms
-num_bins <- 20
-
-# Create histograms for numeric variables
-par(mfrow = c(2, 2))  # Adjust the layout based on the number of numeric variables
-for (i in 1:ncol(numeric_data)) {
-  if (!all(is.na(numeric_data[, i]))) {  # Check if there are no NA values in the column
-    hist(numeric_data[, i], main = names(numeric_data)[i], breaks = num_bins)
-  }
-}
+hist(student_total, main = names(student_dataset)[99], xlim = c(0,100), ylim = c(0,30))
+hist(student_exam, main = names(student_dataset)[98], xlim = c(0,60), ylim = c(0,20))
+hist(student_course, main = names(student_dataset)[97], xlim = c(0,40), ylim = c(0,35))
 
 
 # The name suggesting what the histogram is for
 par(mfrow = c(1, 3))
-student_regretting <- as.numeric(unlist(student_data[, 4]))
-hist(student_regretting, main = names(student_data)[4])
+student_regretting <- as.numeric(unlist(student_dataset[, 4]))
+hist(student_regretting, main = names(student_dataset)[4])
 
-student_read_contet <- as.numeric(unlist(student_data[, 7]))
-hist(student_read_contet, main = names(student_data)[7])
+student_read_content <- as.numeric(unlist(student_dataset[, 7]))
+hist(student_read_content, main = names(student_dataset)[7])
 
-student_study_time <- as.numeric(unlist(student_data[, 27]))
-hist(student_study_time, main = names(student_data)[27])
+student_study_time <- as.numeric(unlist(student_dataset[, 27]))
+hist(student_study_time, main = names(student_dataset)[27])
 
-student_repeats <- as.numeric(unlist(student_data[, 28]))
-hist(student_repeats, main = names(student_data)[28])
+student_repeats <- as.numeric(unlist(student_dataset[, 28]))
+hist(student_repeats, main = names(student_dataset)[28])
 
-student_with_internet <- as.numeric(unlist(student_data[, 36]))
-hist(student_with_internet, main = names(student_data)[36])
+student_with_internet <- as.numeric(unlist(student_dataset[, 36]))
+hist(student_with_internet, main = names(student_dataset)[36])
 
-student_avg_evaluation <- as.numeric(unlist(student_data[, 75]))
-hist(student_avg_evaluation, main = names(student_data)[75])
+student_avg_evaluation <- as.numeric(unlist(student_dataset[, 75]))
+hist(student_avg_evaluation, main = names(student_dataset)[75])
 
-student_avg_learning <- as.numeric(unlist(student_data[, 76]))
-hist(student_avg_learning, main = names(student_data)[76])
+student_avg_learning <- as.numeric(unlist(student_dataset[, 76]))
+hist(student_avg_learning, main = names(student_dataset)[76])
 
-student_total <- as.numeric(unlist(student_data[, 98]))
-hist(student_total, main = names(student_data)[98])
 
 ### STEP 18. Create Box and Whisker Plots for Each Numeric Attribute ----
-
-par(mfrow = c(1, 3))
-for (i in 4:6) {
-  boxplot(student_data[, i], main = names(student_data)[i])
+#Labwork
+par(mfrow = c(1, 5))
+for (i in 87:91) {
+  boxplot(student_dataset[, i], main = names(student_dataset)[i])
 }
+#Student marks
+par(mfrow = c(1, 3))
+for (i in 97:99) {
+  boxplot(student_dataset[, i], main = names(student_dataset)[i])
+}
+
 #Avg course evaluation
-boxplot(student_data[, 75], main = names(student_data)[75])
-
-par(mfrow = c(1, 7))
-for (i in 60:72) {
-  boxplot(student_data[, i], main = names(student_data)[i])
-}
 par(mfrow = c(1, 3))
-#learning
-boxplot(student_data[, 76], main = names(student_data)[76])
-#Totals
-par(mfrow = c(1, 2))
+for (i in 75:77) {
+  boxplot(student_dataset[, i], main = names(student_dataset)[i])
+}
 
-boxplot(student_data[, 98], main = names(student_data)[98])
+par(mfrow = c(1, 4))
+for (i in 60:63) {
+  boxplot(student_dataset[, i], main = names(student_dataset)[i])
+}
+
+
+par(mfrow = c(1, 2))
+#learning
+boxplot(student_dataset[, 76], main = names(student_dataset)[76])
+#Totals
+boxplot(student_dataset[, 98], main = names(student_dataset)[98])
 
 
 ### STEP 19. Create Bar Plots for Each Categorical Attribute ----
 
 #Barplot for all categorical data
-par(mfrow = c(1, 6))
-for (i in 1:6) {for (i in 1:6) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
+par(mfrow = c(1, 3))
+
+for (i in seq(1, 72, by = 3)) {
+  # Create a sequence of column indices: 19, 22, 25, 28, ...
+  indices <- seq(i, min(i + 2, 72))  # Ensure we don't go beyond column 72
+  
+  # Loop through the selected indices and create barplots
+  for (j in indices) {
+    barplot(table(student_data[, j]), main = names(student_data)[j])
+  }
 }
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 7:12) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 13:18) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 25:30) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 31:36) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 37:42) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 43:48) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 49:54) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 55:60) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 61:66) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
-for (i in 67:72) {
-  barplot(table(student_data[, i]), main = names(student_data)[i])
-}
+
+
+#marks and grades barplot
+par(mfrow = c(1, 1))
+
+barplot(table(student_data[, 97]), main = names(student_data)[97])
+barplot(table(student_data[, 98]), main = names(student_data)[98])
+barplot(table(student_data[, 99]), main = names(student_data)[99])
+barplot(table(student_data[, 100]), main = names(student_data)[100])
+
 
 
 ### STEP 20. Create a Missingness Map to Identify Missing Data ----
